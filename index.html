@@ -15,6 +15,29 @@
 </head>
 
 <body>
+    <!-- Subtle SVG Background Layer -->
+    <div class="svg-bg-layer" aria-hidden="true">
+        <svg id="visual" viewBox="0 0 900 600" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+            <defs>
+                <filter id="blur1" x="-10%" y="-10%" width="120%" height="120%">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                    <feGaussianBlur stdDeviation="161" result="effect1_foregroundBlur"></feGaussianBlur>
+                </filter>
+            </defs>
+            <rect width="900" height="600" fill="#1B2A41"></rect>
+            <g filter="url(#blur1)">
+                <circle cx="18" cy="12" fill="#0B0F14" r="357"></circle>
+                <circle cx="678" cy="22" fill="#1B2A41" r="357"></circle>
+                <circle cx="655" cy="225" fill="#0B0F14" r="357"></circle>
+                <circle cx="214" cy="154" fill="#0B0F14" r="357"></circle>
+                <circle cx="628" cy="562" fill="#1B2A41" r="357"></circle>
+                <circle cx="34" cy="561" fill="#0B0F14" r="357"></circle>
+            </g>
+        </svg>
+    </div>
+
     <div class="app-layout">
         <!-- Left Sidebar Navigation -->
         <nav class="sidebar-nav">
@@ -62,6 +85,15 @@
                         <polyline points="12 6 12 12 16 14" />
                     </svg>
                     <span class="nav-text">History</span>
+                </button>
+
+                <button class="sidebar-nav-item" data-tab="booked" aria-label="Booked Rides">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                        <polyline points="9 11 12 14 16 10" />
+                    </svg>
+                    <span class="nav-text">Booked</span>
                 </button>
             </div>
 
@@ -123,7 +155,7 @@
                 <main class="feed-container">
                     <div class="feed-scroll">
                         <!-- Post Card 1 -->
-                        <article class="post-card" data-animate="pop-in">
+                        <article class="post-card" data-animate="pop-in" data-post-id="static-1">
                             <div class="glass-overlay"></div>
                             <header class="post-header">
                                 <div class="avatar-container">
@@ -134,34 +166,51 @@
                                 </div>
                             </header>
                             <div class="route-strip">
-                                <div class="route-point start">
-                                    <svg class="start-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <circle cx="12" cy="12" r="4" fill="currentColor" />
-                                    </svg>
-                                    <span>Powai</span>
-                                </div>
-                                <div class="route-track">
-                                    <div class="track-line"></div>
-                                    <div class="moving-vehicle bike-icon paused">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="1.5">
-                                            <circle cx="5" cy="17" r="3" />
-                                            <circle cx="19" cy="17" r="3" />
-                                            <path d="M12 17V5l4 4" />
-                                            <path d="M8 17h4" />
-                                            <path d="M16 17l-4-8" />
+                                <div class="route-collapsed">
+                                    <div class="route-label">
+                                        <span class="route-from">Powai</span>
+                                        <span class="route-dot">•</span>
+                                        <span class="route-to">BKC</span>
+                                    </div>
+                                    <button class="route-address-btn" aria-label="Toggle address">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                            <circle cx="12" cy="10" r="3" />
                                         </svg>
+                                        <span>Address</span>
+                                    </button>
+                                </div>
+                                <div class="route-address-details">
+                                    <div class="address-row pickup">
+                                        <span class="address-label">Pickup:</span>
+                                        <span class="address-value">IIT Powai Main Gate</span>
+                                    </div>
+                                    <div class="address-row drop">
+                                        <span class="address-label">Drop:</span>
+                                        <span class="address-value">Bandra Kurla Complex, Gate 3</span>
                                     </div>
                                 </div>
-                                <div class="route-point end">
-                                    <svg class="end-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" fill="currentColor" />
+                            </div>
+                            <div class="time-strip">
+                                <div class="time-point departure">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
                                     </svg>
-                                    <span>BKC</span>
+                                    <span class="time-label">Departs</span>
+                                    <span class="time-value">8:30 AM</span>
+                                </div>
+                                <div class="time-connector"></div>
+                                <div class="time-point arrival">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    <span class="time-label">Arrives</span>
+                                    <span class="time-value">9:15 AM</span>
                                 </div>
                             </div>
                             <div class="transport-section single-mode">
@@ -194,7 +243,7 @@
                         </article>
 
                         <!-- Post Card 2 -->
-                        <article class="post-card" data-animate="pop-in">
+                        <article class="post-card" data-animate="pop-in" data-post-id="static-2">
                             <div class="glass-overlay"></div>
                             <header class="post-header">
                                 <div class="avatar-container">
@@ -205,33 +254,51 @@
                                 </div>
                             </header>
                             <div class="route-strip">
-                                <div class="route-point start">
-                                    <svg class="start-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <circle cx="12" cy="12" r="4" fill="currentColor" />
-                                    </svg>
-                                    <span>Andheri</span>
-                                </div>
-                                <div class="route-track">
-                                    <div class="track-line"></div>
-                                    <div class="moving-vehicle car-icon paused">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="1.5">
-                                            <path d="M5 17h14v-5l-2-4H7l-2 4v5z" />
-                                            <circle cx="7.5" cy="17" r="1.5" />
-                                            <circle cx="16.5" cy="17" r="1.5" />
-                                            <path d="M5 12h14" />
+                                <div class="route-collapsed">
+                                    <div class="route-label">
+                                        <span class="route-from">Andheri</span>
+                                        <span class="route-dot">•</span>
+                                        <span class="route-to">Lower Parel</span>
+                                    </div>
+                                    <button class="route-address-btn" aria-label="Toggle address">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                            <circle cx="12" cy="10" r="3" />
                                         </svg>
+                                        <span>Address</span>
+                                    </button>
+                                </div>
+                                <div class="route-address-details">
+                                    <div class="address-row pickup">
+                                        <span class="address-label">Pickup:</span>
+                                        <span class="address-value">Andheri Station West, Platform 1</span>
+                                    </div>
+                                    <div class="address-row drop">
+                                        <span class="address-label">Drop:</span>
+                                        <span class="address-value">Phoenix Palladium, Lower Parel</span>
                                     </div>
                                 </div>
-                                <div class="route-point end">
-                                    <svg class="end-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" fill="currentColor" />
+                            </div>
+                            <div class="time-strip">
+                                <div class="time-point departure">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
                                     </svg>
-                                    <span>Lower Parel</span>
+                                    <span class="time-label">Departs</span>
+                                    <span class="time-value">9:00 AM</span>
+                                </div>
+                                <div class="time-connector"></div>
+                                <div class="time-point arrival">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    <span class="time-label">Arrives</span>
+                                    <span class="time-value">9:45 AM</span>
                                 </div>
                             </div>
                             <div class="transport-section single-mode">
@@ -264,7 +331,7 @@
                         </article>
 
                         <!-- Post Card 3 -->
-                        <article class="post-card" data-animate="pop-in">
+                        <article class="post-card" data-animate="pop-in" data-post-id="static-3">
                             <div class="glass-overlay"></div>
                             <header class="post-header">
                                 <div class="avatar-container">
@@ -275,33 +342,51 @@
                                 </div>
                             </header>
                             <div class="route-strip">
-                                <div class="route-point start">
-                                    <svg class="start-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <circle cx="12" cy="12" r="4" fill="currentColor" />
-                                    </svg>
-                                    <span>Thane</span>
-                                </div>
-                                <div class="route-track">
-                                    <div class="track-line"></div>
-                                    <div class="moving-vehicle car-icon paused">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="1.5">
-                                            <path d="M5 17h14v-5l-2-4H7l-2 4v5z" />
-                                            <circle cx="7.5" cy="17" r="1.5" />
-                                            <circle cx="16.5" cy="17" r="1.5" />
-                                            <path d="M5 12h14" />
+                                <div class="route-collapsed">
+                                    <div class="route-label">
+                                        <span class="route-from">Thane</span>
+                                        <span class="route-dot">•</span>
+                                        <span class="route-to">Nariman Point</span>
+                                    </div>
+                                    <button class="route-address-btn" aria-label="Toggle address">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                            <circle cx="12" cy="10" r="3" />
                                         </svg>
+                                        <span>Address</span>
+                                    </button>
+                                </div>
+                                <div class="route-address-details">
+                                    <div class="address-row pickup">
+                                        <span class="address-label">Pickup:</span>
+                                        <span class="address-value">Thane Railway Station, East Exit</span>
+                                    </div>
+                                    <div class="address-row drop">
+                                        <span class="address-label">Drop:</span>
+                                        <span class="address-value">Express Towers, Nariman Point</span>
                                     </div>
                                 </div>
-                                <div class="route-point end">
-                                    <svg class="end-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" fill="currentColor" />
+                            </div>
+                            <div class="time-strip">
+                                <div class="time-point departure">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
                                     </svg>
-                                    <span>Nariman Point</span>
+                                    <span class="time-label">Departs</span>
+                                    <span class="time-value">7:30 AM</span>
+                                </div>
+                                <div class="time-connector"></div>
+                                <div class="time-point arrival">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    <span class="time-label">Arrives</span>
+                                    <span class="time-value">8:45 AM</span>
                                 </div>
                             </div>
                             <div class="transport-section single-mode">
@@ -585,8 +670,27 @@
                                         Start Location
                                     </label>
                                     <div class="input-wrapper">
-                                        <input type="text" id="postPickup" placeholder="Enter pickup location..."
-                                            class="form-input" />
+                                        <div class="input-with-address">
+                                            <input type="text" id="postPickup" placeholder="Enter pickup location..."
+                                                class="form-input" />
+                                            <button type="button" class="post-address-toggle"
+                                                data-target="pickupAddressFields">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                                    <circle cx="12" cy="10" r="3" />
+                                                </svg>
+                                                <span>Address</span>
+                                            </button>
+                                        </div>
+                                        <div class="post-address-fields" id="pickupAddressFields">
+                                            <input type="text" id="pickupStreet" class="address-sub-input"
+                                                placeholder="Street / Landmark" />
+                                            <input type="text" id="pickupArea" class="address-sub-input"
+                                                placeholder="Area / City" />
+                                            <input type="text" id="pickupPincode" class="address-sub-input"
+                                                placeholder="Pin code (optional)" />
+                                        </div>
                                         <span class="input-error" id="pickupError">Only letters and spaces
                                             allowed</span>
                                     </div>
@@ -602,11 +706,60 @@
                                         Destination
                                     </label>
                                     <div class="input-wrapper">
-                                        <input type="text" id="postDestination" placeholder="Enter destination..."
-                                            class="form-input" />
+                                        <div class="input-with-address">
+                                            <input type="text" id="postDestination" placeholder="Enter destination..."
+                                                class="form-input" />
+                                            <button type="button" class="post-address-toggle"
+                                                data-target="destAddressFields">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                                    <circle cx="12" cy="10" r="3" />
+                                                </svg>
+                                                <span>Address</span>
+                                            </button>
+                                        </div>
+                                        <div class="post-address-fields" id="destAddressFields">
+                                            <input type="text" id="destStreet" class="address-sub-input"
+                                                placeholder="Street / Landmark" />
+                                            <input type="text" id="destArea" class="address-sub-input"
+                                                placeholder="Area / City" />
+                                            <input type="text" id="destPincode" class="address-sub-input"
+                                                placeholder="Pin code (optional)" />
+                                        </div>
                                         <span class="input-error" id="destinationError">Only letters and spaces
                                             allowed</span>
                                     </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline points="12 6 12 12 16 14" />
+                                        </svg>
+                                        Trip Time
+                                    </label>
+                                    <div class="time-input-row">
+                                        <div class="time-input-group">
+                                            <span class="time-input-label">Departure</span>
+                                            <input type="time" id="postDepartTime" class="form-input time-input" />
+                                        </div>
+                                        <div class="time-input-separator">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path d="M5 12h14" />
+                                                <path d="m12 5 7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                        <div class="time-input-group">
+                                            <span class="time-input-label">Arrival</span>
+                                            <input type="time" id="postArriveTime" class="form-input time-input" />
+                                        </div>
+                                    </div>
+                                    <span class="input-error" id="timeError">Both departure and arrival times are
+                                        required</span>
                                 </div>
 
                                 <div class="form-group">
@@ -667,6 +820,14 @@
                             <div class="post-form-actions">
                                 <button type="button" class="post-btn secondary" id="postCancelBtn">Cancel</button>
                                 <button type="button" class="post-btn primary" id="postPreviewBtn">Preview Post</button>
+                                <button type="button" class="post-btn primary publish" id="postDirectPublishBtn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M22 2L11 13" />
+                                        <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+                                    </svg>
+                                    Post
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -689,34 +850,52 @@
                                         </div>
                                     </header>
                                     <div class="route-strip">
-                                        <div class="route-point start">
-                                            <svg class="start-icon" width="20" height="20" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2">
-                                                <circle cx="12" cy="12" r="10" />
-                                                <circle cx="12" cy="12" r="4" fill="currentColor" />
-                                            </svg>
-                                            <span id="previewPickup">Pickup</span>
-                                        </div>
-                                        <div class="route-track">
-                                            <div class="track-line"></div>
-                                            <div class="moving-vehicle bike-icon" id="previewVehicleIcon">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="1.5">
-                                                    <circle cx="5" cy="17" r="3" />
-                                                    <circle cx="19" cy="17" r="3" />
-                                                    <path d="M12 17V5l4 4" />
-                                                    <path d="M8 17h4" />
-                                                    <path d="M16 17l-4-8" />
+                                        <div class="route-collapsed">
+                                            <div class="route-label">
+                                                <span class="route-from" id="previewPickup">Pickup</span>
+                                                <span class="route-dot">•</span>
+                                                <span class="route-to" id="previewDestination">Destination</span>
+                                            </div>
+                                            <button class="route-address-btn" aria-label="Toggle address">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                                    <circle cx="12" cy="10" r="3" />
                                                 </svg>
+                                                <span>Address</span>
+                                            </button>
+                                        </div>
+                                        <div class="route-address-details">
+                                            <div class="address-row pickup">
+                                                <span class="address-label">Pickup:</span>
+                                                <span class="address-value" id="previewPickupAddress">Pickup
+                                                    address</span>
+                                            </div>
+                                            <div class="address-row drop">
+                                                <span class="address-label">Drop:</span>
+                                                <span class="address-value" id="previewDropAddress">Drop address</span>
                                             </div>
                                         </div>
-                                        <div class="route-point end">
-                                            <svg class="end-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    </div>
+                                    <div class="time-strip">
+                                        <div class="time-point departure">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2">
-                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                                <circle cx="12" cy="10" r="3" fill="currentColor" />
+                                                <circle cx="12" cy="12" r="10" />
+                                                <polyline points="12 6 12 12 16 14" />
                                             </svg>
-                                            <span id="previewDestination">Destination</span>
+                                            <span class="time-label">Departs</span>
+                                            <span class="time-value" id="previewDepartTime">--:--</span>
+                                        </div>
+                                        <div class="time-connector"></div>
+                                        <div class="time-point arrival">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <polyline points="12 6 12 12 16 14" />
+                                            </svg>
+                                            <span class="time-label">Arrives</span>
+                                            <span class="time-value" id="previewArriveTime">--:--</span>
                                         </div>
                                     </div>
                                     <div class="transport-section single-mode">
@@ -1406,6 +1585,30 @@
                     </div>
                 </div>
             </div>
+
+            <!-- BOOKED RIDES PAGE -->
+            <div class="page-container" id="page-booked">
+                <div class="booked-rides-page">
+                    <div class="booked-rides-header">
+                        <h2 class="booked-rides-title">Booked Rides</h2>
+                        <span class="booked-rides-count" id="bookedRidesCount">0 rides</span>
+                    </div>
+                    <main class="feed-container">
+                        <div class="feed-scroll" id="bookedFeedScroll">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </main>
+                    <div class="booked-empty-state" id="bookedEmptyState">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" opacity="0.4">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                        </svg>
+                        <p>No booked rides yet</p>
+                        <span>Register for rides from the Home feed</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1509,60 +1712,7 @@
                     </div>
                 </div>
 
-                <!-- Payment Methods -->
-                <div class="payment-section">
-                    <h3 class="section-title">Payment Method</h3>
-                    <div class="payment-methods">
-                        <div class="payment-method-item active" data-method="upi">
-                            <div class="payment-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M10.6 7.4L7.3 21h2.8l1.2-5h2.8l-1.2 5h2.8l3.3-13.6h-2.8l-1.8 7.2h-2.8l1.8-7.2h-2.8z" />
-                                </svg>
-                            </div>
-                            <span>UPI</span>
-                            <div class="check-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="payment-method-item" data-method="card">
-                            <div class="payment-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-                                    <line x1="1" y1="10" x2="23" y2="10" />
-                                </svg>
-                            </div>
-                            <span>Card</span>
-                            <div class="check-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="payment-method-item" data-method="wallet">
-                            <div class="payment-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
-                                    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
-                                    <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z" />
-                                </svg>
-                            </div>
-                            <span>Wallet</span>
-                            <div class="check-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Driver Contact -->
                 <div class="driver-contact">
@@ -1595,7 +1745,7 @@
                 <!-- Action Buttons -->
                 <div class="modal-actions">
                     <button class="modal-btn secondary" id="modalCancel">Cancel</button>
-                    <button class="modal-btn primary" id="modalProceed">Proceed to Pay</button>
+                    <button class="modal-btn primary" id="modalProceed">Proceed to Register</button>
                 </div>
 
                 <!-- Footer Links -->
@@ -1605,7 +1755,7 @@
                             stroke-width="2">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        <span>Secure Payment</span>
+                        <span>Secure Registration</span>
                     </div>
                     <div class="footer-links">
                         <a href="#">Refund Policy</a>
@@ -2002,6 +2152,125 @@
     <audio id="iosConfirmSound" preload="auto">
         <source src="https://cdn.freesound.org/previews/678/678566_5674468-lq.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- ============================================
+         FLOATING CHAT SYSTEM (Instagram-style)
+         ============================================ -->
+    <div id="floatingChatSystem">
+        <!-- Floating Messages Button -->
+        <button class="fc-btn" id="fcBtn" aria-label="Messages">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <span class="fc-badge" id="fcBadge">1</span>
+        </button>
+
+        <!-- Messages Panel -->
+        <div class="fc-panel" id="fcPanel">
+            <div class="fc-panel-header">
+                <h3 class="fc-panel-title">Messages</h3>
+                <button class="fc-compose-btn" aria-label="New message">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="fc-panel-list" id="fcPanelList">
+                <!-- Arjun Mehta -->
+                <div class="fc-chat-item" data-chat-id="arjun" data-name="Arjun Mehta" data-initials="AM"
+                    data-online="true">
+                    <div class="fc-chat-avatar">
+                        <span>AM</span>
+                        <span class="fc-online-dot"></span>
+                    </div>
+                    <div class="fc-chat-info">
+                        <div class="fc-chat-top">
+                            <span class="fc-chat-name">Arjun Mehta</span>
+                            <span class="fc-chat-time">2m</span>
+                        </div>
+                        <p class="fc-chat-preview">See you at 9 AM tomorrow!</p>
+                    </div>
+                </div>
+                <!-- Priya Sharma -->
+                <div class="fc-chat-item" data-chat-id="priya" data-name="Priya Sharma" data-initials="PS"
+                    data-online="false">
+                    <div class="fc-chat-avatar">
+                        <span>PS</span>
+                    </div>
+                    <div class="fc-chat-info">
+                        <div class="fc-chat-top">
+                            <span class="fc-chat-name">Priya Sharma</span>
+                            <span class="fc-chat-time">1h</span>
+                        </div>
+                        <p class="fc-chat-preview">Thanks for the ride today 🚗</p>
+                    </div>
+                </div>
+                <!-- Rohan Kapoor -->
+                <div class="fc-chat-item" data-chat-id="rohan" data-name="Rohan Kapoor" data-initials="RK"
+                    data-online="false">
+                    <div class="fc-chat-avatar">
+                        <span>RK</span>
+                    </div>
+                    <div class="fc-chat-info">
+                        <div class="fc-chat-top">
+                            <span class="fc-chat-name">Rohan Kapoor</span>
+                            <span class="fc-chat-time">3h</span>
+                        </div>
+                        <p class="fc-chat-preview">Can we reschedule to Thursday?</p>
+                    </div>
+                </div>
+                <!-- Neha Kulkarni (unread) -->
+                <div class="fc-chat-item" data-chat-id="neha" data-name="Neha Kulkarni" data-initials="NK"
+                    data-online="true">
+                    <div class="fc-chat-avatar">
+                        <span>NK</span>
+                        <span class="fc-online-dot"></span>
+                    </div>
+                    <div class="fc-chat-info">
+                        <div class="fc-chat-top">
+                            <span class="fc-chat-name">Neha Kulkarni</span>
+                            <span class="fc-chat-time">5h</span>
+                        </div>
+                        <p class="fc-chat-preview">I'll be waiting at the usual spot</p>
+                    </div>
+                    <span class="fc-unread-dot"></span>
+                </div>
+                <!-- Vikram Rao -->
+                <div class="fc-chat-item" data-chat-id="vikram" data-name="Vikram Rao" data-initials="VR"
+                    data-online="false">
+                    <div class="fc-chat-avatar">
+                        <span>VR</span>
+                    </div>
+                    <div class="fc-chat-info">
+                        <div class="fc-chat-top">
+                            <span class="fc-chat-name">Vikram Rao</span>
+                            <span class="fc-chat-time">1d</span>
+                        </div>
+                        <p class="fc-chat-preview">Great driving today!</p>
+                    </div>
+                </div>
+                <!-- Ananya Singh -->
+                <div class="fc-chat-item" data-chat-id="ananya" data-name="Ananya Singh" data-initials="AS"
+                    data-online="false">
+                    <div class="fc-chat-avatar">
+                        <span>AS</span>
+                    </div>
+                    <div class="fc-chat-info">
+                        <div class="fc-chat-top">
+                            <span class="fc-chat-name">Ananya Singh</span>
+                            <span class="fc-chat-time">2d</span>
+                        </div>
+                        <p class="fc-chat-preview">Let me know when you reach</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Windows Container (dynamically populated by JS) -->
+        <div class="fc-windows" id="fcWindows"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
